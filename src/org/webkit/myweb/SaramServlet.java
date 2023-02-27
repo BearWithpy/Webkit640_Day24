@@ -13,6 +13,16 @@ public class SaramServlet extends HttpServlet {
         res.setCharacterEncoding("UTF-8");
         res.setContentType("text/html; charset=utf-8");
 
+        String ctxPath = req.getContextPath();
+        String reqUri = req.getRequestURI();
+
+        System.out.println("doGet() - SaramController 실행");
+        System.out.printf("%s, %s\n", ctxPath, reqUri);
+
+        int beginIndex = ctxPath.length();
+        String urlPattern = reqUri.substring(beginIndex);
+        System.out.println("urlPattern => " + urlPattern);
+
         PrintWriter out =  res.getWriter();
 
         out.println("<!DOCTYPE html>");

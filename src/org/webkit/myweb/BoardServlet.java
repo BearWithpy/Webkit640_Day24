@@ -10,6 +10,10 @@ import java.io.PrintWriter;
 public class BoardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        // 나는 왜 안 나올까?ㅋㅋ..
+        System.out.printf("URI: %s\ncontextPath: %s\n",request.getRequestURI(), request.getContextPath() );
+
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=utf-8");
 
