@@ -11,28 +11,25 @@ public class BoardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        // 나는 왜 안 나올까?ㅋㅋ..
-        System.out.printf("URI: %s\ncontextPath: %s\n",request.getRequestURI(), request.getContextPath() );
+        String ctxPath = request.getContextPath();
+        String reqUri = request.getRequestURI();
 
-        response.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html; charset=utf-8");
+        System.out.println("doGet() - SaramController 실행");
+        System.out.printf("%s, %s\n", ctxPath, reqUri);
 
-        PrintWriter out =  response.getWriter();
+        int beginIndex = ctxPath.length();
+        String urlPattern = reqUri.substring(beginIndex);
+        System.out.println("urlPattern => " + urlPattern);
 
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("  <head>");
-        out.println("    <title>Board</title>");
-        out.println("  </head>");
-        out.println("  <body>");
-        out.println("    <h1>Hello Board</h1>");
-        out.println("    <h3>게시판 글 목록 페이지</h3>");
-        out.println("    <hr />");
-        out.println("    <p>Blah Blah~<p/>");
-        out.println("  </body>");
-        out.println("</html>");
+        request.setAttribute("url", urlPattern);
 
-        out.close();
+        // Forward to view page
+        String viewName = "/WEB-INF/views/board.jsp";
+        RequestDispatcher view = request.getRequestDispatcher(viewName);
+
+        // 이 servlet 페이지에서 하는 일을 뷰 jsp로 위임
+        // request와 response 객체를 전달함
+        view.forward(request ,response);
     }
 
     @Override
