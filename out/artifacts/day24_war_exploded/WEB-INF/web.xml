@@ -3,4 +3,23 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+
+    <servlet>
+        <servlet-name>appServlet</servlet-name>
+        <servlet-class>org.webkit.myweb.HelloServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>appServlet</servlet-name>
+        <url-pattern>/hello</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>saramServlet</servlet-name>
+        <servlet-class>org.webkit.myweb.SaramServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>saramServlet</servlet-name>
+        <!-- 다양한 형태로 설정이 가능함-->
+        <url-pattern>*.saram</url-pattern>
+    </servlet-mapping>
 </web-app>

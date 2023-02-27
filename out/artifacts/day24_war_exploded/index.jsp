@@ -20,7 +20,9 @@
   <h1>Hello World</h1>
   <h3>Welcome to Junsu Area</h3>
   <ul>
-    <li>사람목록</li>
+    <li><a href="/hello">Hello</a></li>
+    <li><a href="list.saram">사람 정보 목록</a></li>
+    <li><a href="board/list.do">게시판 글 목록</a></li>
 
   </ul>
 </body>
