@@ -1,18 +1,15 @@
 package org.webkit.myweb;
 
-import org.webkit.myweb.board.model.BoardDTO;
 import org.webkit.myweb.controller.BoardController;
 import org.webkit.myweb.controller.Controller;
 import org.webkit.myweb.controller.SaramController;
 import org.webkit.myweb.saram.model.SaramDTO;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
-import javax.servlet.annotation.WebServlet;
+
 import javax.servlet.http.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
+
 
 
 //@WebFilter(urlPatterns="*.did")
@@ -28,7 +25,6 @@ public class DispatcherServlet extends HttpServlet {
 
         request.setAttribute("path", uri);
 
-//        String action = uri.substring(uri.lastIndexOf("/") + 1);
         String category = uri.substring(0, uri.lastIndexOf("/"));
         System.out.println("URI : " + uri);
         System.out.println("category : " + category);

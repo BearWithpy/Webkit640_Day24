@@ -13,8 +13,7 @@ public class SaramController implements Controller {
         String path = (String) request.getAttribute("path");
         String viewName = "/WEB-INF/views/saram/list.jsp";
 
-        if(path.indexOf("input.did") != -1){
-//        if(path.contains("input.did")){
+        if(path.contains("input.did")){
             viewName = "/WEB-INF/views/saram/input.jsp";
         }
 
