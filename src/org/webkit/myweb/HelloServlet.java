@@ -20,7 +20,7 @@ public class HelloServlet extends HttpServlet {
 
         // req 객체이 요청 정보(session, uri, parameter..)를 저장함
         // res 객체에는 브라우저에서 처리하는 정보(forward, redirect 정보...)가 저장된다
-        PrintWriter out =  res.getWriter();
+        PrintWriter out = res.getWriter();
 
         out.println("<!DOCTYPE html>");
         out.println("<html>");

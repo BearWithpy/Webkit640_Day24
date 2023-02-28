@@ -2,14 +2,14 @@ package org.webkit.myweb.controller;
 
 import org.webkit.myweb.saram.model.SaramDTO;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 
-public class SaramController {
+public class SaramController implements Controller {
 
-    protected String process(HttpServletRequest request, HttpServletResponse response){
+    @Override
+    public String process(HttpServletRequest request, HttpServletResponse response) {
 
         String viewName = "/WEB-INF/views/saram/list.jsp";
 

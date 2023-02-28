@@ -12,19 +12,19 @@
     <title>Title</title>
 </head>
 <body>
-    <h1>사람 목록 페이지</h1>
+<h1>사람 목록 페이지</h1>
 <%--    <p>관리자:  ${userName}</p>--%>
-    <p>
-        <%
-            ArrayList<SaramDTO> userList = (ArrayList<SaramDTO>) request.getAttribute("userList");
+<p>
+    <%
+        ArrayList<SaramDTO> userList = (ArrayList<SaramDTO>) request.getAttribute("userList");
 
-            for (SaramDTO user : userList) {
+        for (SaramDTO user : userList) {
 //                out.printf("#%d %s %s %d\n",user.id, user.name, user.nickname, user.age);
-                out.println(user + "<br />");
+            out.println(user + "<br />");
 //                out.println(user.name + "<br />");
-            }
-        %>
-    </p>
+        }
+    %>
+</p>
 </body>
 </html>
 
