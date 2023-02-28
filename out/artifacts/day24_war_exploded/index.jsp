@@ -25,6 +25,12 @@
     <li><a href="board/list.do">게시판 글 목록 with Annotation Mapping</a></li>
     <li><a href="test"></a></li>
 
+    <li><a href="board/list.did">게시판 글 목록</a></li>
+    <li><a href="saram/list.did">사람 정보 목록</a></li>
+
   </ul>
 </body>
 </html>
+
+
+<%--https://mvnrepository.com/artifact/org.projectlombok/lombok--%>

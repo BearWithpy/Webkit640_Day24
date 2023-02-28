@@ -11,10 +11,10 @@
     <title>Board</title>
 </head>
 <body>
-    <h1>Is it Right??</h1>
-    <hr />
-        <h3>May be?
-            <%=request.getAttribute("url")%>
-        </h3>
+<h1>Is it Right??</h1>
+<hr/>
+<h3>May be?
+    <%=request.getAttribute("url")%>
+</h3>
 </body>
 </html>

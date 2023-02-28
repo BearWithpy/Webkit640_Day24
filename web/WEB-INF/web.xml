@@ -22,4 +22,14 @@
         <!-- 다양한 형태로 설정이 가능함-->
         <url-pattern>*.saram</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>dispatcherServlet</servlet-name>
+        <servlet-class>org.webkit.myweb.DispatcherServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>dispatcherServlet</servlet-name>
+        <!-- 다양한 형태로 설정이 가능함-->
+        <url-pattern>*.did</url-pattern>
+    </servlet-mapping>
 </web-app>
