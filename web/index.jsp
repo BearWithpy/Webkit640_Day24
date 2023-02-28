@@ -28,6 +28,7 @@
     <li><a href="board/list.did">게시판 글 목록</a></li>
     <li><a href="saram/list.did">사람 정보 목록</a></li>
 
+
 </ul>
 </body>
 </html>

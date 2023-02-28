@@ -25,6 +25,7 @@
         }
     %>
 </p>
+<a href="input.did">사람 정보 input</a>
 </body>
 </html>
 

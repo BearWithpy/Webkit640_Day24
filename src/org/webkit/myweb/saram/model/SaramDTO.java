@@ -12,4 +12,9 @@ public class SaramDTO {
     public String name;
     public String nickname;
     public int age;
+
+    @Override
+    public String toString() {
+        return "SaramDTO [id=" + id + ", name=" + name + ", age=" + age + "]";
+    }
 }

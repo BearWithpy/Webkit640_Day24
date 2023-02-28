@@ -10,8 +10,13 @@ public class SaramController implements Controller {
 
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) {
-
+        String path = (String) request.getAttribute("path");
         String viewName = "/WEB-INF/views/saram/list.jsp";
+
+        if(path.indexOf("input.did") != -1){
+//        if(path.contains("input.did")){
+            viewName = "/WEB-INF/views/saram/input.jsp";
+        }
 
         SaramDTO saram1 = new SaramDTO(1, "박준수", "pjs", 25);
         SaramDTO saram2 = new SaramDTO(2, "박00", "js", 15);
