@@ -15,9 +15,7 @@ public class JdbcUtil {
         Context envCtx = (Context) initCtx.lookup("java:comp/env");
         DataSource ds = (DataSource)
                 envCtx.lookup("jdbc/H2DB");
-
         return ds.getConnection();
-
     }
 
     public static void close(Connection obj) {
@@ -43,7 +41,6 @@ public class JdbcUtil {
             e.printStackTrace();
         }
     }
-
 
     public static void close(Connection conn, Statement stmt, ResultSet rs) {
         close(rs);

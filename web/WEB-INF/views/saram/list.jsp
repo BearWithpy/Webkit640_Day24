@@ -17,11 +17,11 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Insert title here</title>
+    <title>Saram List</title>
 </head>
 <body>
 
-<h3>길동이의 홈페이지</h3>
+<h3>Junsu in the LAB</h3>
 <h1>사람 목록</h1>
 
 <!-- EL 표기법 -->
@@ -33,8 +33,6 @@
 %>
 
 <%
-    // 리스트를 출력한다.
-// request에 list속성 명으로 저장된 목록을 가져온다.
     ArrayList<SaramDTO> list = (ArrayList<SaramDTO>) request.getAttribute("userList");
     for (SaramDTO saram : list) {
 %>

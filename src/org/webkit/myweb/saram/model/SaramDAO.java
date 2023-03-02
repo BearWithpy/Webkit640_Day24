@@ -9,179 +9,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-//
-//public class SaramDAO {
-//    // CRUD 전담 class
-//    Connection conn; //DB 연결
-//    PreparedStatement stmt; // DB에 query 전달
-//    ResultSet rs; // 결과를 받아올 때 사용
-//
-//    final String FIND_ALL = "SELECT * FROM SARAM";
-//    final String FIND_ONE = "SELECT * FROM SARAM WHERE SEQ=?";
-//    final String SAVE = "INSERT INTO SARAM(id, name, age) VALUES(?,?,?)";
-//    final String UPDATE = "UPDATE SARAM SET id=?, name=?,age=? WHERE seq=?";
-//    final String DELETE_ONE = "DELETE FROM SARAM WHERE seq=?";
-//
-//
-//
-//    // search
-//    public List<SaramDTO> findAll() {
-//        List<SaramDTO> list = new ArrayList<SaramDTO>();
-//
-//        try {
-//            conn = JdbcUtil.getConnection();
-//            stmt = conn.prepareStatement(FIND_ALL);
-//            rs = stmt.executeQuery();
-//            while (rs.next()) {
-//                int seq = rs.getInt("seq");
-//                String id = rs.getString("id");
-//                String name = rs.getString("name");
-//                int age = rs.getInt("age");
-//                list.add(new SaramDTO(seq, id, name, age));
-//
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        } catch (NamingException e) {
-//            throw new RuntimeException(e);
-//        } finally {
-//            JdbcUtil.close(conn, stmt, rs);
-//        }
-//
-//        return list;
-//    }
-//
-//    public SaramDTO findOne(SaramDTO dto) throws SQLException, NamingException {
-//        SaramDTO saram = null;
-//
-//        try {
-//            conn = JdbcUtil.getConnection();
-//            stmt = conn.prepareStatement(FIND_ONE);
-//            rs = stmt.executeQuery();
-//
-//            stmt.setInt(1, dto.getSeq());
-//
-//            if (rs.next()) {
-//                int seq = rs.getInt("seq");
-//                String id = rs.getString("id");
-//                String name = rs.getString("name");
-//                int age = rs.getInt("age");
-//                saram = new SaramDTO(seq, id, name, age);
-//            }
-//
-//        } finally {
-//            JdbcUtil.close(conn, stmt, rs);
-//        }
-//        return saram;
-//
-//    }
-//
-//    // input
-//    public void save(SaramDTO dto) throws SQLException, NamingException {
-//        System.out.println(dto);
-//        try {
-//            conn = JdbcUtil.getConnection();
-//            stmt = conn.prepareStatement(SAVE);
-//            rs = stmt.executeQuery();
-//
-////            stmt.setString(1, dto.getId());
-////            stmt.setString(2, dto.getName());
-////            stmt.setInt(3, dto.getAge());
-//
-//            stmt.setString(1,"KANG");
-//            stmt.setString(2, "강감찬2");
-//            stmt.setInt(3, 352);
-//
-////            stmt.executeUpdate();
-//
-//
-//            // SELECT문 외에는 모두 excuteUpdate 해야함
-////            int cnt = stmt.executeUpdate();
-////            if (cnt > 0) {
-////                System.out.println("입력 성공");
-////                conn.commit();
-////            } else {
-////                conn.rollback();
-////            }
-//        } finally {
-//            JdbcUtil.close(conn, stmt, rs);
-//        }
-//
-//    }
-//
-//    // edit
-//    public void update(SaramDTO dto) throws SQLException, NamingException {
-//        try {
-//            conn = JdbcUtil.getConnection();
-//            stmt = conn.prepareStatement(UPDATE);
-//            rs = stmt.executeQuery();
-//
-//            stmt.setString(1, dto.getId());
-//            stmt.setString(2, dto.getName());
-//            stmt.setInt(3, dto.getAge());
-//            stmt.setInt(4, dto.getSeq());
-//
-//            // SELECT문 외에는 모두 excuteUpdate 해야함
-//            int cnt = stmt.executeUpdate();
-//            if (cnt > 0) {
-//                System.out.println("입력 성공");
-//                conn.commit();
-//            } else {
-//                conn.rollback();
-//            }
-//        } finally {
-//            JdbcUtil.close(conn, stmt, rs);
-//        }
-//    }
-//
-//    // delete
-//    public void deleteAll(SaramDTO dto) throws SQLException, NamingException {
-//
-//
-//    }
-//
-//    public void deleteOne(SaramDTO dto) {
-//        try {
-//            conn = JdbcUtil.getConnection();
-//            stmt = conn.prepareStatement(DELETE_ONE);
-//            rs = stmt.executeQuery();
-//
-//            stmt.setInt(1, dto.getSeq());
-//            int cnt = stmt.executeUpdate();
-//            if (cnt > 0) {
-//                System.out.println("삭제 성공");
-//                conn.commit();
-//            } else {
-//                conn.rollback();
-//            }
-//        } catch (SQLException | NamingException e) {
-//            throw new RuntimeException(e);
-//        } finally {
-//            JdbcUtil.close(conn, stmt, rs);
-//        }
-//    }
-//
-//    public static void testFindAll() {
-//        SaramDAO dao = new SaramDAO();
-//        List<SaramDTO> saramList = dao.findAll();
-//        for (SaramDTO saramDTO : saramList) {
-//            System.out.println(saramDTO);
-//        }
-//    }
-//
-//    public static void main(String[] args) {
-//        testFindAll();
-//    }
-//
-//}
-
-
 
 public class SaramDAO {
-    // Database에 CRUD를 전담하는 클래스
-    Connection conn = null; // 디비 연결 용도
-    PreparedStatement stmt = null; // 디비에 SQL 전달
-    ResultSet rs = null; // 결과를 받아 올때 사용.
+
+    Connection conn = null;
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
 
     final String FIND_ALL = "SELECT * FROM SARAM";
     final String FIND_ONE = "SELECT * FROM SARAM WHERE SEQ=?";
@@ -233,7 +66,6 @@ public class SaramDAO {
         return saram;
     }
 
-    // 입력
     public void save(SaramDTO dto) {
         try {
             conn = JdbcUtil.getConnection();
@@ -257,7 +89,6 @@ public class SaramDAO {
         }
     }
 
-    // 수정
     public void update(SaramDTO dto) {
         System.out.println("Saram update ... " + dto);
         try {
@@ -282,7 +113,6 @@ public class SaramDAO {
         }
     }
 
-    // 삭제
     public void remove(SaramDTO dto) {
         try {
             conn = JdbcUtil.getConnection();
@@ -320,8 +150,8 @@ public class SaramDAO {
         SaramDAO dao = new SaramDAO();
         List<SaramDTO> saramList = dao.findAll();
         // System.out.println(saramList);
-        for (int i = 0; i < saramList.size(); i++) {
-            System.out.println(saramList.get(i));
+        for (SaramDTO saramDTO : saramList) {
+            System.out.println(saramDTO);
         }
     }
 }

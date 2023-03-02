@@ -21,11 +21,7 @@
             ArrayList<BoardDTO> boardList = (ArrayList<BoardDTO>) request.getAttribute("boardList");
 
             for (BoardDTO board : boardList) {
-
-//        out.printf("#%f %s %s %d<br />",board.getSeq(), board.getAuthor(), board.getTitle(), board.getCnt());
-//        out.println(board.getSeq()+" " + board.getAuthor()+" " +board.getTitle()+" " + board.getCnt() + "<br />");
                 out.println(board + "<br />");
-
             }
         %>
     </p>

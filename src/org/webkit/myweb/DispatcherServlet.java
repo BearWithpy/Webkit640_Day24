@@ -41,27 +41,7 @@ public class DispatcherServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Controller controller = null;
         String viewName = "";
-//
-//        String uri = request.getRequestURI();
-//
-//        request.setAttribute("path", uri);
-//        String category = uri.substring(0, uri.lastIndexOf("/"));
-//        System.out.println("URI : " + uri);
-//        System.out.println("category : " + category);
-
-
-//        if ("/board".equals(category)) {
-//            controller = new BoardController();
-//            viewName = controller.process(request, response);
-//            forwardView(request, response, viewName);
-//
-//        } else if ("/saram".equals(category)) {
-//            controller = new SaramController();
-//            viewName = controller.process(request, response);
-//            forwardView(request, response, viewName);
-
         String path = encodeWork(request, response);
-
 
         if (path.contains("/saram")) {
             controller = new SaramController();
@@ -71,38 +51,20 @@ public class DispatcherServlet extends HttpServlet {
         assert controller != null;
         try {
             viewName = controller.process(request, response);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (NamingException e) {
+        } catch (SQLException | NamingException e) {
             throw new RuntimeException(e);
         }
 
-        RequestDispatcher view = request.getRequestDispatcher(viewName);
-        view.forward(request, response);
-
-    }
-
-
-    protected void forwardView(HttpServletRequest request, HttpServletResponse response, String viewName) throws ServletException, IOException {
         RequestDispatcher view = request.getRequestDispatcher(viewName);
         view.forward(request, response);
     }
 
     SaramDAO saramDAO = new SaramDAO();
 
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Controller controller;
         String viewName;
-//        String uri = request.getRequestURI();
-//
-//        request.setAttribute("path", uri);
-//
-//
-//        String action = uri.substring(0, uri.lastIndexOf("/"));
-//        System.out.println("URI : " + uri);
-//        System.out.println("POST ACTION : " + action);
 
         String path = encodeWork(request, response);
 
@@ -111,9 +73,9 @@ public class DispatcherServlet extends HttpServlet {
         String name = request.getParameter("name");
         int age = Integer.parseInt(request.getParameter("age")==null?"0":request.getParameter("age"));
         SaramDTO dto = new SaramDTO(seq, id, name, age);
-        if("/saram/input.did".indexOf(path) != -1) {
+        if("/saram/input.did".contains(path)) {
             saramDAO.save(dto);
-        } else if("/saram/modify.did".indexOf(path) != -1) {
+        } else if("/saram/modify.did".contains(path)) {
             saramDAO.update(dto);
         }
         response.sendRedirect(request.getContextPath() + "/saram/list.did");
