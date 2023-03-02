@@ -8,13 +8,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SaramDTO {
-    public int id;
+    public int seq;
+    public String id;
+
     public String name;
-    public String nickname;
+//    public String nickname;
     public int age;
 
     @Override
     public String toString() {
-        return "SaramDTO [id=" + id + ", name=" + name + ", age=" + age + "]";
+        return "SaramDTO [ id=" + id + ", name=" + name + ", seq=" + seq + "]"+", age=" + age + "]";
     }
 }

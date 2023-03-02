@@ -3,13 +3,16 @@ package org.webkit.myweb;
 import org.webkit.myweb.controller.BoardController;
 import org.webkit.myweb.controller.Controller;
 import org.webkit.myweb.controller.SaramController;
+import org.webkit.myweb.saram.model.SaramDAO;
 import org.webkit.myweb.saram.model.SaramDTO;
 
+import javax.naming.NamingException;
 import javax.servlet.*;
 
 import javax.servlet.http.*;
 import java.io.IOException;
-
+import java.io.UnsupportedEncodingException;
+import java.sql.SQLException;
 
 
 //@WebFilter(urlPatterns="*.did")
@@ -17,67 +20,103 @@ import java.io.IOException;
 //@WebServlet(name = "DispatcherServlet", urlPatterns = {"/saram/list.did", "/board/list.did"})
 public class DispatcherServlet extends HttpServlet {
 
+    private String encodeWork(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
+
+        // path 만들기
+        String ctxPath = request.getContextPath();
+        String reqUri = request.getRequestURI();
+        int beginIndex = ctxPath.length();
+        String path = reqUri.substring(beginIndex);
+        System.out.println("path >>>> " + path);
+
+        request.setAttribute("path", path);
+        return path;
+
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Controller controller = null;
         String viewName = "";
-        String uri = request.getRequestURI();
+//
+//        String uri = request.getRequestURI();
+//
+//        request.setAttribute("path", uri);
+//        String category = uri.substring(0, uri.lastIndexOf("/"));
+//        System.out.println("URI : " + uri);
+//        System.out.println("category : " + category);
 
-        request.setAttribute("path", uri);
 
-        String category = uri.substring(0, uri.lastIndexOf("/"));
-        System.out.println("URI : " + uri);
-        System.out.println("category : " + category);
+//        if ("/board".equals(category)) {
+//            controller = new BoardController();
+//            viewName = controller.process(request, response);
+//            forwardView(request, response, viewName);
+//
+//        } else if ("/saram".equals(category)) {
+//            controller = new SaramController();
+//            viewName = controller.process(request, response);
+//            forwardView(request, response, viewName);
 
-        if ("/board".equals(category)) {
-            controller = new BoardController();
-            viewName = controller.process(request, response);
-            forwardView(request, response, viewName);
+        String path = encodeWork(request, response);
 
-        } else if ("/saram".equals(category)) {
+
+        if (path.contains("/saram")) {
             controller = new SaramController();
-            viewName = controller.process(request, response);
-            forwardView(request, response, viewName);
+        } else if (path.contains("/board")) {
+            controller = new BoardController();
         }
+        assert controller != null;
+        try {
+            viewName = controller.process(request, response);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (NamingException e) {
+            throw new RuntimeException(e);
+        }
+
+        RequestDispatcher view = request.getRequestDispatcher(viewName);
+        view.forward(request, response);
+
     }
+
 
     protected void forwardView(HttpServletRequest request, HttpServletResponse response, String viewName) throws ServletException, IOException {
         RequestDispatcher view = request.getRequestDispatcher(viewName);
         view.forward(request, response);
     }
 
+    SaramDAO saramDAO = new SaramDAO();
+
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Controller controller;
         String viewName;
-        String uri = request.getRequestURI();
-
-        request.setAttribute("path", uri);
-
-
-        String action = uri.substring(0, uri.lastIndexOf("/"));
-        System.out.println("URI : " + uri);
-        System.out.println("POST ACTION : " + action);
-
-        String id = request.getParameter("id");
-        String name = request.getParameter("id");
-        int age = Integer.parseInt(request.getParameter("age") == null ? "0" : request.getParameter("age"));
-
-        SaramDTO dto = new SaramDTO(99,name,id,age);
-        System.out.println(dto);
-        response.sendRedirect("/");
-
-
-//        if ("/board".equals(action)) {
-//            controller = new BoardController();
-//            viewName = controller.process(request, response);
-//            forwardView(request, response, viewName);
+//        String uri = request.getRequestURI();
 //
-//        } else if ("/saram".equals(action)) {
-//            controller = new SaramController();
-//            viewName = controller.process(request, response);
-//            forwardView(request, response, viewName);
-//        }
+//        request.setAttribute("path", uri);
+//
+//
+//        String action = uri.substring(0, uri.lastIndexOf("/"));
+//        System.out.println("URI : " + uri);
+//        System.out.println("POST ACTION : " + action);
+
+        String path = encodeWork(request, response);
+
+        int seq = Integer.parseInt(request.getParameter("seq")==null?"0":request.getParameter("seq"));
+        String id = request.getParameter("id");
+        String name = request.getParameter("name");
+        int age = Integer.parseInt(request.getParameter("age")==null?"0":request.getParameter("age"));
+        SaramDTO dto = new SaramDTO(seq, id, name, age);
+        if("/saram/input.did".indexOf(path) != -1) {
+            saramDAO.save(dto);
+        } else if("/saram/modify.did".indexOf(path) != -1) {
+            saramDAO.update(dto);
+        }
+        response.sendRedirect(request.getContextPath() + "/saram/list.did");
+
     }
 }

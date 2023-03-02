@@ -1,25 +1,23 @@
 package org.webkit.myweb.dbcp;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 import java.sql.*;
 
 // https://web2eye.tistory.com/36
 public class JdbcUtil {
 
-    public static Connection getConnection() {
-        // JDBC 연동 - 커넥션 드라이버 찾기
+    public static Connection getConnection() throws NamingException, SQLException {
 
-        Connection conn = null;
-        try {
-            Class.forName("org.h2.Driver"); // 드라이버 검색 -> 인스턴스화
-            conn = DriverManager.getConnection(url, user, password);
-        } catch (ClassNotFoundException e) {
-            System.out.println("드라이버 검색 실패!");
-            e.printStackTrace();
-        } catch (SQLException e) {
-            System.out.println("SQL 오류!");
-            e.printStackTrace();
-        }
-        return conn;
+        Context initCtx = new InitialContext();
+        Context envCtx = (Context) initCtx.lookup("java:comp/env");
+        DataSource ds = (DataSource)
+                envCtx.lookup("jdbc/H2DB");
+
+        return ds.getConnection();
+
     }
 
     public static void close(Connection obj) {
